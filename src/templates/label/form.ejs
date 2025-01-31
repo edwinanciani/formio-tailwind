@@ -1,0 +1,18 @@
+<label
+  ref="label"
+  class="block text-sm font-bold text-gray-700 mb-3 {{ctx.label.className}}"
+  for="{{ctx.instance.id}}-{{ctx.component.key}}"
+  id="l-{{ctx.instance.id}}-{{ctx.component.key}}"
+>
+  {{ ctx.t(ctx.component.label, { _userInput: true }) }}
+  {% if (ctx.component.type === 'number' || ctx.component.type === 'phoneNumber' || ctx.component.type === 'currency') { %}
+    <span class="sr-only">, {{ctx.t('numeric only')}},</span>
+  {% } %}
+  {% if (ctx.component.tooltip) { %}
+    <i ref="tooltip" 
+       tabindex="0" 
+       class="{{ctx.iconClass('question-sign')}} ml-1 text-gray-400 hover:text-gray-500 cursor-pointer" 
+       data-tooltip="{{ctx.component.tooltip}}">
+    </i>
+  {% } %}
+</label>

@@ -1,0 +1,53 @@
+<div class="flex flex-col space-y-4">
+  <div class="flex justify-between items-center px-4">
+    <div class="flex-1">
+      <h2 class="text-xl font-semibold text-gray-900">{{ctx.t(ctx.componentInfo.title, { _userInput: true })}} {{ctx.t('Component')}}</h2>
+    </div>
+  </div>
+
+  <div class="flex flex-col lg:flex-row gap-4">
+    <div class="flex-1 {{ (ctx.preview && ctx.showPreview) ? 'lg:w-1/2' : 'w-full' }}">
+      <div ref="editForm">
+        {{ctx.editForm}}
+      </div>
+      {% if (!ctx.showPreview) { %}
+      <div class="flex gap-2 mt-4">
+        <button class="px-4 py-2 text-sm font-medium text-white bg-green-600 hover:bg-green-700 rounded-md" ref="saveButton">{{ctx.t('Save')}}</button>
+        <button class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-md" ref="cancelButton">{{ctx.t('Cancel')}}</button>
+        <button class="px-4 py-2 text-sm font-medium text-white bg-red-600 hover:bg-red-700 rounded-md" ref="removeButton">{{ctx.t('Remove')}}</button>
+        {% if (ctx.preview) { %}
+        <button class="ml-auto px-4 py-2 text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 rounded-md" ref="previewButton">{{ctx.t('Show preview')}}</button>
+        {% } %}
+      </div>
+      {% } %}
+    </div>
+
+    {% if (ctx.showPreview && ctx.preview) { %}
+    <div class="lg:w-1/2">
+      <div class="border border-gray-200 rounded-lg shadow-sm">
+        <div class="px-4 py-3 border-b border-gray-200">
+          <h3 class="text-lg font-medium text-gray-900">{{ctx.t('Preview')}}</h3>
+        </div>
+        <div class="p-4">
+          <div class="component-preview" ref="preview">
+            {{ctx.preview}}
+          </div>
+        </div>
+      </div>
+
+      {% if (ctx.componentInfo.help) { %}
+      <div class="mt-4 p-4 bg-gray-50 rounded-lg text-sm text-gray-600">
+        {{ ctx.t(ctx.componentInfo.help) }}
+      </div>
+      {% } %}
+
+      <div class="flex gap-2 mt-4">
+        <button class="px-4 py-2 text-sm font-medium text-white bg-green-600 hover:bg-green-700 rounded-md" ref="saveButton">{{ctx.t('Save')}}</button>
+        <button class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-md" ref="cancelButton">{{ctx.t('Cancel')}}</button>
+        <button class="px-4 py-2 text-sm font-medium text-white bg-red-600 hover:bg-red-700 rounded-md" ref="removeButton">{{ctx.t('Remove')}}</button>
+        <button class="ml-auto px-4 py-2 text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 rounded-md" ref="previewButton">{{ctx.t('Hide preview')}}</button>
+      </div>
+    </div>
+    {% } %}
+  </div>
+</div>

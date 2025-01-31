@@ -1,0 +1,28 @@
+<select
+  ref="{{ctx.input.ref ? ctx.input.ref : 'selectContainer'}}"
+  {{ ctx.input.multiple ? 'multiple' : '' }}
+  {% for (var attr in ctx.input.attr) { %}
+  {% if (attr === 'class') { %} 
+  class="{{ctx.input.attr[attr]}} w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+  {% } else { %}
+  {{attr}}="{{ctx.input.attr[attr]}}"
+  {% } %}
+  {% } %}
+  {% if (!ctx.input.attr.id) { %}
+  id="{{ctx.instance.id}}-{{ctx.component.key}}"
+  {% } %}
+  {% if (ctx.component.description) { %}
+  aria-describedby="d-{{ctx.instance.id}}-{{ctx.component.key}}"
+  {% } %}
+  aria-required="{{ctx.input.ref === 'selectContainer' || !ctx.input.ref ? ctx.input.component.validate.required : ctx.component.fields[ctx.input.ref].required}}"
+>{{ctx.selectOptions}}</select>
+<input type="text"
+       class="formio-select-autocomplete-input w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+       ref="autocompleteInput"
+       {% if (ctx.input.attr.autocomplete) { %}
+       autocomplete="{{ctx.input.attr.autocomplete}}"
+       {% } %}
+       tabindex="-1"
+       aria-label="{{ctx.t('autocomplete')}}"
+/>
+

@@ -1,0 +1,68 @@
+<div class="formio-component-modal-wrapper formio-component-modal-wrapper-{{ ctx.component.type }}" ref="componentModalWrapper">
+  <div ref="openModalWrapper"></div>
+  <div class="formio-dialog fixed inset-0 z-50 overflow-y-auto" ref="modalWrapper">
+    <div class="formio-dialog-overlay fixed inset-0 bg-black bg-opacity-30 transition-opacity" ref="modalOverlay"></div>
+    
+    <div class="relative min-h-screen flex items-center justify-center p-4">
+      <div 
+        class="relative bg-white rounded-2xl max-w-2xl w-full shadow-xl transform transition-all"
+        aria-labelledby="ml-{{ctx.instance.id}}-{{ctx.component.key}}" 
+        {% if (!ctx.self.isIE()) { %} role="dialog" {% } %} 
+        ref="modalContents"
+      >
+        <label class="sr-only" id="ml-{{ctx.instance.id}}-{{ctx.component.key}}">
+          {{ ctx.t(ctx.component.label) }}{{ctx.self.isIE() ? ', dialog' : ''}}
+        </label>
+
+        {% if (ctx.options.vpat) { %}
+          <button 
+            class="absolute top-4 right-4 text-gray-400 hover:text-gray-500" 
+            title="Close" 
+            aria-label="Close button. Click to get back to the form" 
+            ref="modalCloseButton"
+          >
+            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        {% } else { %}
+          <button 
+            class="absolute top-4 right-4 text-gray-400 hover:text-gray-500" 
+            aria-label="Close button. Click to get back to the form" 
+            ref="modalClose"
+          >
+            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        {% } %}
+
+        <div class="p-6" ref="modalContents">
+          {% if (ctx.visible) { %}
+            {{ctx.children}}
+          {% } %}
+          
+          <div class="mt-6 flex justify-end gap-3">
+            {% if (ctx.options.vpat) { %}
+              <button 
+                class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500" 
+                aria-label="Cancel button. Click to cancel the changes and get back to the form." 
+                ref="modalClose"
+              >
+                {{ctx.t('Cancel')}}
+              </button>
+            {% } %}
+            <button 
+              class="px-4 py-2 text-sm font-medium text-white bg-primary-600 rounded-lg hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500" 
+              ref="modalSave" 
+              aria-label="Save button. Click to save the changes and get back to the form."
+            >
+              {{ctx.t('Save')}}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  <span class="sr-only" ref="modalLiveRegion" aria-live="assertive"></span>
+</div>
+</div>

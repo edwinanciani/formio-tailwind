@@ -1,0 +1,8 @@
+.collapse {
+  display: inherit !important;
+  visibility: visible !important;
+}
+
+.show {
+  visibility: visible !important;
+}

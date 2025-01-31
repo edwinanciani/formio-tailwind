@@ -1,0 +1,36 @@
+<{{ctx.input.type}}
+  ref="button"
+  {% for (var attr in ctx.input.attr) { %}
+    {% if (attr === 'class') { %}
+      class="{{ctx.input.attr[attr]}} {{ctx.component.theme === 'default' ? 'bg-gray-300' : 'bg-' + ctx.component.theme + '-400'}} inline-flex items-center px-4 py-2 text-sm font-medium rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2"
+    {% } else { %}
+      {{attr}}="{{ctx.input.attr[attr]}}"
+    {% } %}
+  {% } %}
+  {% if (ctx.component.description) { %}
+    aria-describedby="d-{{ctx.instance.id}}-{{ctx.component.key}}"
+  {% } %}
+    {% if (ctx.input.attr.disabled) { %}
+      bg-gray-300 text-gray-500 cursor-not-allowed
+    {% } else { %}
+      bg-primary-600 text-white hover:bg-primary-700 focus:ring-primary-500
+    {% } %}
+>
+  {% if (ctx.component.leftIcon) { %}
+    <span class="{{ctx.component.leftIcon}} -ml-1 mr-2 h-5 w-5"></span>
+  {% } %}
+  {{ctx.input.content}}
+  {% if (ctx.component.tooltip) { %}
+    <i ref="tooltip" class="ml-2 h-5 w-5 text-gray-400 hover:text-gray-500" data-tooltip="{{ctx.component.tooltip}}">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
+      </svg>
+    </i>
+  {% } %}
+  {% if (ctx.component.rightIcon) { %}
+    <span class="{{ctx.component.rightIcon}} -mr-1 ml-2 h-5 w-5"></span>
+  {% } %}
+</{{ctx.input.type}}>
+<div ref="buttonMessageContainer" class="mt-2">
+  <span class="text-sm text-gray-500" ref="buttonMessage"></span>
+</div>

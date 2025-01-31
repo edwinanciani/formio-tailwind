@@ -1,0 +1,21 @@
+<div
+  class="flex items-center space-x-2"
+  ref="{{ctx.input.ref ? ctx.input.ref : 'input'}}"
+>
+  <select
+    class="block w-32 px-3 py-2 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+    id="{{ctx.key}}-mask"
+    ref="select"
+    {% if (ctx.input.attr.disabled) { %}disabled{% } %}>
+    {% ctx.selectOptions.forEach(function(option) { %}
+    <option value="{{option.value}}">{{option.label}}</option>
+    {% }); %}
+  </select>
+  <input
+    ref="mask"
+    class="flex-1 px-3 py-2 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+    {% for (var attr in ctx.input.attr) { %}
+    {{attr}}="{{ctx.input.attr[attr]}}"
+    {% } %}
+  >
+</div>

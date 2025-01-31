@@ -1,0 +1,34 @@
+<div class="relative{% if (ctx.component.verticalLayout) { %} flex flex-row gap-4{% } %}">
+  <div class="{% if (ctx.component.verticalLayout) { %}w-48 shrink-0{% } %}">
+    <ul class="flex {% if (ctx.component.verticalLayout) { %}flex-col w-full{% } else { %}border-b border-gray-200{% } %}" role="tablist">
+      {% ctx.component.components.forEach(function(tab, index) { %}
+      <li class="{% if (!ctx.component.verticalLayout) { %}mr-2{% } %}" role="tab" ref="{{ctx.tabLikey}}">
+        <a
+          class="inline-flex items-center px-4 py-2 text-sm font-medium rounded-t-lg {% if (ctx.currentTab === index) { %}text-primary-600 bg-white border-t border-x border-gray-200{% } else { %}text-gray-500 hover:text-gray-700 hover:bg-gray-50{% } %} {% if (ctx.component.verticalLayout) { %}w-full justify-between{% } %}"
+          href="#{{tab.key}}"
+          ref="{{ctx.tabLinkKey}}"
+        >
+          {{ctx.t(tab.label, { _userInput: true })}}
+          {% if (ctx.component.verticalLayout) { %}
+            <svg class="w-5 h-5 {% if (ctx.currentTab === index) { %}text-primary-600{% } else { %}text-gray-400{% } %}" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+          {% } %}
+        </a>
+      </li>
+      {% }) %}
+    </ul>
+  </div>
+
+  <div class="flex-1 bg-white {% if (!ctx.component.verticalLayout) { %}border-x border-b{% } %} border-gray-200 rounded-b-lg">
+    {% ctx.component.components.forEach(function(tab, index) { %}
+    <div
+      role="tabpanel"
+      class="{% if (ctx.currentTab === index) { %}block{% } else { %}{% } %} p-4"
+      ref="{{ctx.tabKey}}"
+    >
+      {{ctx.tabComponents[index]}}
+    </div>
+    {% }) %}
+  </div>
+</div>
